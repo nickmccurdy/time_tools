@@ -101,5 +101,5 @@ $(document).ready(function() {
 	mockSetup();
 	setInterval(function() {
 		UI.update();
-	}, 1);
+	}, 1000);
 });
