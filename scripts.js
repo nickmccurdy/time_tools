@@ -55,10 +55,6 @@ function Countup(start_time) {
 	};
 }
 
-function createUID() {
-	return Math.random().toString(36).substr(2,9);
-}
-
 var UI = {
 	timers: {},
 
@@ -66,8 +62,12 @@ var UI = {
 		<div class="display"></div> \
 	</div>',
 
+	createUID: function() {
+		return Math.random().toString(36).substr(2,9);
+	},
+
 	createTimer: function(type, time) {
-		var uid = createUID();
+		var uid = this.createUID();
 		var newTimer;
 		switch(type) {
 			case 'countdown':
