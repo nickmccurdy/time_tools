@@ -41,16 +41,56 @@ function Countup(start_time) {
 	};
 }
 
-function update(id) {
-	$('#'+id+' .display').html(timers[id].result());
+function createUID() {
+	return Math.random().toString(36).substr(2,9);
+}
+
+var UI = {
+	timers: {},
+
+	timerHTML: '<div class="timer"> \
+		<div class="display"></div> \
+		<button class="update-button">Update</button> \
+	</div>',
+
+	createTimer: function(type, time) {
+		var uid = createUID();
+		var newTimer;
+		switch(type) {
+			case 'countdown':
+				newTimer = new Countdown(time);
+				break;
+			case 'countup':
+				newTimer = new Countup(time);
+				break;
+		}
+		$(this.timerHTML).attr('id', uid).appendTo('#column');
+		$('.timer#'+uid+' .update-button').click(function() {
+			UI.updateTimer(uid);
+		});
+		this.timers[uid] = newTimer;
+		this.updateTimer(uid);
+	},
+
+	updateTimer: function(uid) {
+		$('.timer#'+uid+' .display').html(this.timers[uid].result());
+	},
+
+	update: function() {
+		$('.timer').each(function() {
+			UI.updateTimer($(this).attr('id'));
+		});
+	}
+};
+
+function mockSetup() {
+	UI.createTimer('countdown', Date.now().add({seconds: 5}));
+	$('#countdown .update-button').click(function() {
+		UI.update();
+	});
 }
 
 $(document).ready(function() {
-	countdown = new Countdown(Date.now().add({seconds: 5}));
-	timers = { 'countdown': countdown };
-
-	update('countdown');
-	$('#countdown').click(function() {
-		update('countdown');
-	});
+	mockSetup();
+	// setInterval("UI.updateTimer('countdown);", 1000);
 });
