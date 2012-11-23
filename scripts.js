@@ -50,7 +50,6 @@ var UI = {
 
 	timerHTML: '<div class="timer"> \
 		<div class="display"></div> \
-		<button class="update-button">Update</button> \
 	</div>',
 
 	createTimer: function(type, time) {
@@ -65,9 +64,6 @@ var UI = {
 				break;
 		}
 		$(this.timerHTML).attr('id', uid).appendTo('#column');
-		$('.timer#'+uid+' .update-button').click(function() {
-			UI.updateTimer(uid);
-		});
 		this.timers[uid] = newTimer;
 		this.updateTimer(uid);
 	},
@@ -85,12 +81,11 @@ var UI = {
 
 function mockSetup() {
 	UI.createTimer('countdown', Date.now().add({seconds: 5}));
-	$('#countdown .update-button').click(function() {
-		UI.update();
-	});
 }
 
 $(document).ready(function() {
 	mockSetup();
-	// setInterval("UI.updateTimer('countdown);", 1000);
+	setInterval(function() {
+		UI.update();
+	}, 1);
 });
