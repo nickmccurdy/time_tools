@@ -1,21 +1,35 @@
+function roundDown(n) {
+	var result;
+	if(n > 0) {
+		result = Math.floor(n);
+	}
+	else if(n < 0) {
+		result = Math.ceil(n);
+	}
+	else {
+		result = n;
+	}
+	return result;
+}
+
 function elapsedTime(start_time, end_time) {
 	// Calculate the elapsed time and break it down into different units
-	var milliseconds = Math.floor(end_time - start_time);
+	var milliseconds = roundDown(end_time - start_time);
 	var seconds = 0;
 	var minutes = 0;
 	var hours = 0;
 	var days = 0;
 	if(Math.abs(milliseconds) >= 1000) {
-		seconds = Math.floor(milliseconds / 1000);
+		seconds = roundDown(milliseconds / 1000);
 		milliseconds = milliseconds % 1000;
 		if(Math.abs(seconds) >= 60) {
-			minutes = Math.floor(seconds / 60);
+			minutes = roundDown(seconds / 60);
 			seconds = seconds % 60;
 			if(Math.abs(minutes) >= 60) {
-				hours = Math.floor(minutes / 60);
+				hours = roundDown(minutes / 60);
 				minutes = minutes % 60;
 				if(Math.abs(hours) >= 24) {
-					days = Math.floor(hours / 24);
+					days = roundDown(hours / 24);
 					hours = hours % 24;
 				}
 			}
