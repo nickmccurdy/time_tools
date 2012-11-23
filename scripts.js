@@ -41,14 +41,14 @@ function Countup(start_time) {
 	};
 }
 
-countdown = new Countdown(Date.now().add({seconds: 5}));
-timers = { 'countdown': countdown };
-
 function update(id) {
 	$('#'+id+' .display').html(timers[id].result());
 }
 
 $(document).ready(function() {
+	countdown = new Countdown(Date.now().add({seconds: 5}));
+	timers = { 'countdown': countdown };
+
 	update('countdown');
 	$('#countdown').click(function() {
 		update('countdown');
