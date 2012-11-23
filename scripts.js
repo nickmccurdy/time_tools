@@ -5,16 +5,16 @@ function elapsedTime(start_time, end_time) {
 	var minutes = 0;
 	var hours = 0;
 	var days = 0;
-	if(milliseconds >= 1000) {
+	if(Math.abs(milliseconds) >= 1000) {
 		seconds = Math.floor(milliseconds / 1000);
 		milliseconds = milliseconds % 1000;
-		if(seconds >= 60) {
+		if(Math.abs(seconds) >= 60) {
 			minutes = Math.floor(seconds / 60);
 			seconds = seconds % 60;
-			if(minutes >= 60) {
+			if(Math.abs(minutes) >= 60) {
 				hours = Math.floor(minutes / 60);
 				minutes = minutes % 60;
-				if(hours >= 24) {
+				if(Math.abs(hours) >= 24) {
 					days = Math.floor(hours / 24);
 					hours = hours % 24;
 				}
