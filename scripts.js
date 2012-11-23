@@ -29,7 +29,6 @@ function Countdown(end_time) {
 	this.end_time = end_time;
 
 	this.result = function() {
-		console.log(end_time);
 		return elapsedTime(Date.now(), end_time);
 	};
 }
