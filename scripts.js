@@ -26,25 +26,31 @@ function elapsedTime(start_time, end_time) {
 	};
 }
 
-function Countdown(end_time) {
-	this.end_time = end_time;
+var Timer = Backbone.Model.extend({
 
-	this.result = function() {
-		elapsed = elapsedTime(Date.now(), end_time);
-		if(elapsed.complete) {
+	defaults: {
+		type: 'countup',
+		time: Date.now()
+	},
+
+	result: function() {
+		var start_time, end_time;
+		if(this.get('type') === 'countdown') {
+			start_time = Date.now();
+			end_time = this.get('time');
+		}
+		else if(this.get('type') === 'countup') {
+			start_time = this.get('time');
+			end_time = Date.now();
+		}
+		var elapsed = elapsedTime(Date.now(), this.get('time'));
+		if(this.get('type') === 'countdown' && elapsed.complete) {
 			elapsed.str = '<span class="text-error">'+elapsed.str+' late</span>';
 		}
 		return elapsed.str;
-	};
-}
+	}
 
-function Countup(start_time) {
-	this.start_time = start_time;
-
-	this.result = function() {
-		return elapsedTime(start_time, Date.now()).str;
-	};
-}
+});
 
 var UI = {
 	timers: {},
@@ -57,13 +63,12 @@ var UI = {
 
 	createTimer: function(type, time) {
 		var uid = this.createUID();
-		var newTimer, column;
+		var newTimer = new Timer({ type: type, time: time });
+		var column;
 		if(type=='countdown') {
-			newTimer = new Countdown(time);
 			column = '#countdown-column';
 		}
 		else if(type=='countup') {
-			newTimer = new Countup(time);
 			column = '#countup-column';
 		}
 		$(this.timerHTML).attr('id', uid).appendTo(column);
