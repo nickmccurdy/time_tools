@@ -1,10 +1,13 @@
 #ui {
 	width: 750px;
 	margin: 0px auto;
-	font-size: 24px;
 	text-align: center;
 }
 
-#ui button {
+.timer {
+	text-align: left;
+}
+
+.display {
 	font-size: 24px;
 }

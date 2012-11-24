@@ -58,7 +58,7 @@ function Countup(start_time) {
 var UI = {
 	timers: {},
 
-	timerHTML: '<div class="timer well"> <div class="display"></div> </div>',
+	timerHTML: '<div class="timer well well-small"> <span class="display"></span> <button class="btn delete-button pull-right">Delete</button> </div>',
 
 	createUID: function() {
 		return Math.random().toString(36).substr(2,9);
@@ -79,8 +79,17 @@ var UI = {
 				break;
 		}
 		$(this.timerHTML).attr('id', uid).appendTo(column);
+		$('.delete-button').click(function() {
+			var uid = $(this).parent('.timer').attr('id');
+			UI.destroyTimer(uid);
+		});
 		this.timers[uid] = newTimer;
 		this.updateTimer(uid);
+	},
+
+	destroyTimer: function(uid) {
+		$('#'+uid).remove();
+		delete this.timers[uid];
 	},
 
 	updateTimer: function(uid) {
@@ -94,14 +103,14 @@ var UI = {
 	}
 };
 
-function mockSetup() {
-	UI.createTimer('countdown', Date.now().add({seconds: 5}));
-	UI.createTimer('countup', Date.now());
-}
-
 $(document).ready(function() {
-	mockSetup();
 	setInterval(function() {
 		UI.update();
 	}, 1000);
+	$('#countdown-column .new-button').click(function() {
+		UI.createTimer('countdown', Date.now().add({seconds: 5}));
+	});
+	$('#countup-column .new-button').click(function() {
+		UI.createTimer('countup', Date.now());
+	});
 });
