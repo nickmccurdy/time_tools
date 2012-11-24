@@ -1,14 +1,14 @@
 function elapsedTime(start_time, end_time) {
 	// Calculate the elapsed time and break it down into different units
 	var milliseconds;
-	var late;
+	var complete;
 	if(start_time <= end_time) {
 		milliseconds = end_time - start_time;
-		late = false;
+		complete = false;
 	}
 	else {
 		milliseconds = start_time - end_time;
-		late = true;
+		complete = true;
 	}
 	var seconds = 0;
 	var minutes = 0;
@@ -32,7 +32,7 @@ function elapsedTime(start_time, end_time) {
 	}
 	// Return a string of the formatted elapsed time
 	var result = days+':'+hours+':'+minutes+':'+seconds+':'+milliseconds;
-	if(late) {
+	if(complete) {
 		result += ' late';
 	}
 	return result;
