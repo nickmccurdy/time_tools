@@ -1,10 +1,10 @@
-#column {
-	width: 500px;
+#ui {
+	width: 750px;
 	margin: 0px auto;
 	font-size: 24px;
 	text-align: center;
 }
 
-#column button {
+#ui button {
 	font-size: 24px;
 }

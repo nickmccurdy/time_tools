@@ -67,15 +67,18 @@ var UI = {
 	createTimer: function(type, time) {
 		var uid = this.createUID();
 		var newTimer;
+		var column;
 		switch(type) {
 			case 'countdown':
 				newTimer = new Countdown(time);
+				column = '#countdown-column';
 				break;
 			case 'countup':
 				newTimer = new Countup(time);
+				column = '#countup-column';
 				break;
 		}
-		$(this.timerHTML).attr('id', uid).appendTo('#column');
+		$(this.timerHTML).attr('id', uid).appendTo(column);
 		this.timers[uid] = newTimer;
 		this.updateTimer(uid);
 	},
@@ -93,6 +96,7 @@ var UI = {
 
 function mockSetup() {
 	UI.createTimer('countdown', Date.now().add({seconds: 5}));
+	UI.createTimer('countup', Date.now());
 }
 
 $(document).ready(function() {
