@@ -58,7 +58,7 @@ function Countup(start_time) {
 var UI = {
 	timers: {},
 
-	timerHTML: '<div class="timer well well-small"> <span class="display"></span> <button class="btn delete-button pull-right">Delete</button> </div>',
+	timerHTML: '<div class="timer well well-small"> <span class="display"></span> <button class="btn delete-button pull-right"><i class="icon-remove"></i> Delete</button> </div>',
 
 	createUID: function() {
 		return Math.random().toString(36).substr(2,9);
