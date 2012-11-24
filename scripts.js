@@ -1,19 +1,9 @@
 function elapsedTime(start_time, end_time) {
 	// Calculate the elapsed time and break it down into different units
-	var milliseconds;
-	var complete;
-	if(start_time <= end_time) {
-		milliseconds = end_time - start_time;
-		complete = false;
-	}
-	else {
-		milliseconds = start_time - end_time;
-		complete = true;
-	}
-	var seconds = 0;
-	var minutes = 0;
-	var hours = 0;
-	var days = 0;
+	var complete = start_time > end_time;
+	var milliseconds = complete ? start_time-end_time : end_time-start_time;
+	var seconds, minutes, hours, days;
+	seconds = minutes = hours = days = 0;
 	if(Math.abs(milliseconds) >= 1000) {
 		seconds = Math.floor(milliseconds / 1000);
 		milliseconds = milliseconds % 1000;
@@ -30,9 +20,10 @@ function elapsedTime(start_time, end_time) {
 			}
 		}
 	}
-	// Return a string of the formatted elapsed time
-	var str = days+':'+hours+':'+minutes+':'+seconds+':'+milliseconds;
-	return { 'str': str, 'complete': complete };
+	return {
+		'str': days+':'+hours+':'+minutes+':'+seconds+':'+milliseconds,
+		'complete': complete
+	};
 }
 
 function Countdown(end_time) {
@@ -66,17 +57,14 @@ var UI = {
 
 	createTimer: function(type, time) {
 		var uid = this.createUID();
-		var newTimer;
-		var column;
-		switch(type) {
-			case 'countdown':
-				newTimer = new Countdown(time);
-				column = '#countdown-column';
-				break;
-			case 'countup':
-				newTimer = new Countup(time);
-				column = '#countup-column';
-				break;
+		var newTimer, column;
+		if(type=='countdown') {
+			newTimer = new Countdown(time);
+			column = '#countdown-column';
+		}
+		else if(type=='countup') {
+			newTimer = new Countup(time);
+			column = '#countup-column';
 		}
 		$(this.timerHTML).attr('id', uid).appendTo(column);
 		$('.delete-button').click(function() {
@@ -98,7 +86,8 @@ var UI = {
 
 	update: function() {
 		$('.timer').each(function() {
-			UI.updateTimer($(this).attr('id'));
+			var uid = $(this).attr('id');
+			UI.updateTimer(uid);
 		});
 	}
 };
