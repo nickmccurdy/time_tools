@@ -31,18 +31,19 @@ function elapsedTime(start_time, end_time) {
 		}
 	}
 	// Return a string of the formatted elapsed time
-	var result = days+':'+hours+':'+minutes+':'+seconds+':'+milliseconds;
-	if(complete) {
-		result += ' late';
-	}
-	return result;
+	var str = days+':'+hours+':'+minutes+':'+seconds+':'+milliseconds;
+	return { 'str': str, 'complete': complete };
 }
 
 function Countdown(end_time) {
 	this.end_time = end_time;
 
 	this.result = function() {
-		return elapsedTime(Date.now(), end_time);
+		elapsed = elapsedTime(Date.now(), end_time);
+		if(elapsed.complete) {
+			elapsed.str = '<span class="text-error">'+elapsed.str+' late</span>';
+		}
+		return elapsed.str;
 	};
 }
 
@@ -50,14 +51,14 @@ function Countup(start_time) {
 	this.start_time = start_time;
 
 	this.result = function() {
-		return elapsedTime(start_time, Date.now());
+		return elapsedTime(start_time, Date.now()).str;
 	};
 }
 
 var UI = {
 	timers: {},
 
-	timerHTML: '<div class="timer"> <div class="display"></div> </div>',
+	timerHTML: '<div class="timer well"> <div class="display"></div> </div>',
 
 	createUID: function() {
 		return Math.random().toString(36).substr(2,9);
