@@ -22,7 +22,7 @@ Timer = Backbone.Model.extend({
 		return elapsed.str;
 	}
 
-},{
+}, {
 	elapsedTime: function(start_time, end_time) {
 		// Calculate the elapsed time and break it down into different units
 		var complete = start_time > end_time;
@@ -57,12 +57,27 @@ TimerCollection = Backbone.Collection.extend({
 });
 
 AppView = Backbone.View.extend({
+	el: $('#ui'),
+
 	timers: new TimerCollection(),
 
 	timerHTML: '<div class="timer well well-small"> <span class="display"></span> <button class="btn btn-small delete-button pull-right"><i class="icon-remove"></i> Delete</button> </div>',
 
+	events: {
+		'click #countdown-column .new-button': 'createCountdown',
+		'click #countup-column .new-button': 'createCountup'
+	},
+
 	createUID: function() {
 		return Math.random().toString(36).substr(2,9);
+	},
+
+	createCountdown: function() {
+		App.createTimer('countdown', Date.now().add({seconds: 5}));
+	},
+
+	createCountup: function() {
+		App.createTimer('countup', Date.now());
 	},
 
 	createTimer: function(type, time) {
@@ -106,10 +121,4 @@ $(document).ready(function() {
 	setInterval(function() {
 		App.update();
 	}, 1000);
-	$('#countdown-column .new-button').click(function() {
-		App.createTimer('countdown', Date.now().add({seconds: 5}));
-	});
-	$('#countup-column .new-button').click(function() {
-		App.createTimer('countup', Date.now());
-	});
 });
