@@ -26,7 +26,7 @@ function elapsedTime(start_time, end_time) {
 	};
 }
 
-var Timer = Backbone.Model.extend({
+Timer = Backbone.Model.extend({
 
 	defaults: {
 		type: 'countup',
@@ -52,11 +52,11 @@ var Timer = Backbone.Model.extend({
 
 });
 
-var TimerCollection = Backbone.Collection.extend({
+TimerCollection = Backbone.Collection.extend({
 	model: Timer
 });
 
-var AppView = Backbone.View.extend({
+AppView = Backbone.View.extend({
 	timers: new TimerCollection(),
 
 	timerHTML: '<div class="timer well well-small"> <span class="display"></span> <button class="btn btn-small delete-button pull-right"><i class="icon-remove"></i> Delete</button> </div>',
