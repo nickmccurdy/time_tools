@@ -52,8 +52,12 @@ var Timer = Backbone.Model.extend({
 
 });
 
-var UI = {
-	timers: {},
+var TimerCollection = Backbone.Collection.extend({
+	model: Timer
+});
+
+var AppView = Backbone.View.extend({
+	timers: new TimerCollection(),
 
 	timerHTML: '<div class="timer well well-small"> <span class="display"></span> <button class="btn btn-small delete-button pull-right"><i class="icon-remove"></i> Delete</button> </div>',
 
@@ -74,7 +78,7 @@ var UI = {
 		$(this.timerHTML).attr('id', uid).appendTo(column);
 		$('.delete-button').click(function() {
 			var uid = $(this).parent('.timer').attr('id');
-			UI.destroyTimer(uid);
+			App.destroyTimer(uid);
 		});
 		this.timers[uid] = newTimer;
 		this.updateTimer(uid);
@@ -92,19 +96,20 @@ var UI = {
 	update: function() {
 		$('.timer').each(function() {
 			var uid = $(this).attr('id');
-			UI.updateTimer(uid);
+			App.updateTimer(uid);
 		});
 	}
-};
+});
 
 $(document).ready(function() {
+	App = new AppView();
 	setInterval(function() {
-		UI.update();
+		App.update();
 	}, 1000);
 	$('#countdown-column .new-button').click(function() {
-		UI.createTimer('countdown', Date.now().add({seconds: 5}));
+		App.createTimer('countdown', Date.now().add({seconds: 5}));
 	});
 	$('#countup-column .new-button').click(function() {
-		UI.createTimer('countup', Date.now());
+		App.createTimer('countup', Date.now());
 	});
 });
