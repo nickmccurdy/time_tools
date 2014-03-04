@@ -61,8 +61,6 @@ AppView = Backbone.View.extend({
 
   timers: new TimerCollection(),
 
-  timerHTML: '<div class="timer well well-sm"> <span class="display"></span> <button class="btn btn-sm btn-danger delete-button pull-right"><span class="glyphicon glyphicon-remove"></span> Delete</button> </div>',
-
   events: {
     'click #countdown-column .new-button': 'createCountdown',
     'click #countup-column .new-button': 'createCountup'
@@ -90,7 +88,7 @@ AppView = Backbone.View.extend({
     else if(type=='countup') {
       column = '#countup-column';
     }
-    $(this.timerHTML).attr('id', uid).appendTo(column);
+    $($("#timer-template").html()).attr('id', uid).appendTo(column);
     $('.delete-button').click(function() {
       var uid = $(this).parent('.timer').attr('id');
       App.destroyTimer(uid);
