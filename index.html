@@ -5,7 +5,7 @@
   <title>Time Tools</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- css -->
-  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css">
+  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="styles.css">
   <!-- icons -->
   <link rel="icon" href="favicon.ico">
@@ -13,21 +13,27 @@
 
 <body>
 
-<div class="row-fluid" id="ui">
-  <div class="span6" id="countdown-column">
+<div class="row" id="ui">
+  <div class="col-md-6" id="countdown-column">
     <h2>Countdowns</h2>
-    <p><button class="btn new-button"><i class="icon-circle-arrow-down"></i> New</button></p>
+    <button class="btn btn-success new-button">
+      <span class="glyphicon glyphicon-circle-arrow-down"></span>
+      New
+    </button>
   </div>
-  <div class="span6" id="countup-column">
+  <div class="col-md-6" id="countup-column">
     <h2>Countups</h2>
-    <p><button class="btn new-button"><i class="icon-circle-arrow-up"></i> New</button></p>
+    <button class="btn btn-success new-button">
+      <span class="glyphicon glyphicon-circle-arrow-up"></span>
+      New
+    </button>
   </div>
 </div>
 
 <script type="text/template" id="timer-template">
-  <div class="timer well well-small">
-    <span class="display"><%= display %></span>
-    <button class="btn btn-small delete-button pull-right"><i class="icon-remove"></i> Delete</button>
+  <div class="timer well well-sm">
+    <span class="display"></span>
+    <button class="btn btn-sm btn-danger delete-button pull-right"><span class="glyphicon glyphicon-remove"></span> Delete</button>
   </div>
 </script>
 

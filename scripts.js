@@ -17,7 +17,7 @@ Timer = Backbone.Model.extend({
     }
     var elapsed = Timer.elapsedTime(Date.now(), this.get('time'));
     if(this.get('type') === 'countdown' && elapsed.complete) {
-      elapsed.str = '<span class="text-error">'+elapsed.str+' late</span>';
+      elapsed.str = '<span class="text-danger">'+elapsed.str+' late</span>';
     }
     return elapsed.str;
   }
@@ -61,7 +61,7 @@ AppView = Backbone.View.extend({
 
   timers: new TimerCollection(),
 
-  timerHTML: '<div class="timer well well-small"> <span class="display"></span> <button class="btn btn-small delete-button pull-right"><i class="icon-remove"></i> Delete</button> </div>',
+  timerHTML: '<div class="timer well well-sm"> <span class="display"></span> <button class="btn btn-sm btn-danger delete-button pull-right"><span class="glyphicon glyphicon-remove"></span> Delete</button> </div>',
 
   events: {
     'click #countdown-column .new-button': 'createCountdown',
