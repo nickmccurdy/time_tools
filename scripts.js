@@ -83,10 +83,10 @@ AppView = Backbone.View.extend({
     var newTimer = new Timer({ type: type, time: time });
     var column;
     if(type=='countdown') {
-      column = '#countdown-column';
+      column = '#countdown-column ul';
     }
     else if(type=='countup') {
-      column = '#countup-column';
+      column = '#countup-column ul';
     }
     $(column).append(_.template($("#timer-template").html(), { uid: uid }));
     $('.delete-button').click(function() {
