@@ -2,31 +2,27 @@ Timer = Backbone.Model.extend({
 
   defaults: {
     type: 'countup',
-    time: Date.now()
+    time: moment()
   },
 
   result: function() {
     var start_time, end_time;
     if(this.get('type') === 'countdown') {
-      start_time = Date.now();
+      start_time = moment();
       end_time = this.get('time');
     }
     else if(this.get('type') === 'countup') {
       start_time = this.get('time');
-      end_time = Date.now();
+      end_time = moment();
     }
-    var elapsed = Timer.elapsedTime(Date.now(), this.get('time'));
-    if(this.get('type') === 'countdown' && Timer.isCompleted(start_time, end_time)) {
+    var elapsed = Timer.elapsedTime(moment(), this.get('time'));
+    if(this.get('type') === 'countdown' && start_time.isAfter(end_time)) {
       elapsed = '<span class="text-danger">'+elapsed+' late</span>';
     }
     return elapsed;
   }
 
 }, {
-  isCompleted: function(start_time, end_time) {
-    return moment(start_time).isAfter(end_time);
-  },
-
   elapsedTime: function(start_time, end_time) {
     var startMoment = moment(start_time);
     var hours = Math.abs(startMoment.diff(end_time, 'hours'));
