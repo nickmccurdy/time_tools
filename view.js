@@ -13,7 +13,7 @@ AppView = Backbone.View.extend({
   },
 
   createCountdown: function() {
-    App.createTimer('countdown', Date.now().add({seconds: 5}));
+    App.createTimer('countdown', (new Date()).addSeconds(5));
   },
 
   createCountup: function() {
