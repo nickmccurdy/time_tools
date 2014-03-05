@@ -6,13 +6,15 @@ Timer = Backbone.Model.extend({
 
   result: function() {
     var start_time, end_time;
-    if(this.get('type') === 'countdown') {
-      start_time = moment();
-      end_time = this.get('time');
-    }
-    else if(this.get('type') === 'countup') {
-      start_time = this.get('time');
-      end_time = moment();
+    switch(this.get('type')) {
+      case 'countdown':
+        start_time = moment();
+        end_time = this.get('time');
+        break;
+      case 'countup':
+        start_time = this.get('time');
+        end_time = moment();
+        break;
     }
     var elapsed = Timer.elapsedTime(this.get('time'));
     if(this.get('type') === 'countdown' && start_time.isAfter(end_time)) {

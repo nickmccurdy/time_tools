@@ -22,20 +22,12 @@ AppView = Backbone.View.extend({
 
   createTimer: function(type, time) {
     var uid = this.createUID();
-    var newTimer = new Timer({ type: type, time: time });
-    var column;
-    if(type=='countdown') {
-      column = '#countdown-column ul';
-    }
-    else if(type=='countup') {
-      column = '#countup-column ul';
-    }
-    $(column).append(_.template($("#timer-template").html(), { uid: uid }));
+    var $column = $('#' + type + '-column ul');
+    $column.append(_.template($("#timer-template").html(), { uid: uid }));
     $('.delete-button').click(function() {
-      var uid = $(this).parent('.timer').attr('id');
-      App.destroyTimer(uid);
+      App.destroyTimer($(this).parent('.timer').attr('id'));
     });
-    this.timers[uid] = newTimer;
+    this.timers[uid] = new Timer({ type: type, time: time });
     this.updateTimer(uid);
   },
 
@@ -50,15 +42,10 @@ AppView = Backbone.View.extend({
 
   update: function() {
     $('.timer').each(function() {
-      var uid = $(this).attr('id');
-      App.updateTimer(uid);
+      App.updateTimer($(this).attr('id'));
     });
   }
 });
 
-$(document).ready(function() {
-  App = new AppView();
-  setInterval(function() {
-    App.update();
-  }, 1000);
-});
+App = new AppView();
+setInterval(App.update, 1000);
