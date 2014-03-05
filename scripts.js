@@ -88,7 +88,7 @@ AppView = Backbone.View.extend({
     else if(type=='countup') {
       column = '#countup-column';
     }
-    $($("#timer-template").html()).attr('id', uid).appendTo(column);
+    $(column).append(_.template($("#timer-template").html(), { uid: uid }));
     $('.delete-button').click(function() {
       var uid = $(this).parent('.timer').attr('id');
       App.destroyTimer(uid);
