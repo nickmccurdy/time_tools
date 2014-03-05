@@ -12,6 +12,8 @@ AppView = Backbone.View.extend({
     return Math.random().toString(36).substr(2, 9);
   },
 
+  template: _.template($("#timer-template").html()),
+
   createCountdown: function () {
     this.createTimer('countdown', moment().add('seconds', 5));
   },
@@ -24,7 +26,7 @@ AppView = Backbone.View.extend({
     var that = this;
     var uid = this.createUID();
     var $column = $('#' + type + '-column ul');
-    $column.append(_.template($("#timer-template").html(), { uid: uid }));
+    $column.append(this.template({ uid: uid }));
     $('.delete-button').click(function () {
       that.destroyTimer($(this).parent('.timer').attr('id'));
     });
