@@ -13,19 +13,20 @@ AppView = Backbone.View.extend({
   },
 
   createCountdown: function() {
-    App.createTimer('countdown', moment().add('seconds', 5));
+    this.createTimer('countdown', moment().add('seconds', 5));
   },
 
   createCountup: function() {
-    App.createTimer('countup', moment());
+    this.createTimer('countup', moment());
   },
 
   createTimer: function(type, time) {
+    var that = this;
     var uid = this.createUID();
     var $column = $('#' + type + '-column ul');
     $column.append(_.template($("#timer-template").html(), { uid: uid }));
     $('.delete-button').click(function() {
-      App.destroyTimer($(this).parent('.timer').attr('id'));
+      that.destroyTimer($(this).parent('.timer').attr('id'));
     });
     this.timers[uid] = new Timer({ type: type, time: time });
     this.renderTimer(uid);
