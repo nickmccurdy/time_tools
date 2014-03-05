@@ -4,11 +4,11 @@ Timer = Backbone.Model.extend({
     time: moment()
   }
 }, {
-  elapsedTime: function (end_time) {
+  elapsedTime: function (endTime) {
     var startMoment = moment();
-    var hours = Math.abs(startMoment.diff(end_time, 'hours'));
-    var minutes = Math.abs(startMoment.diff(end_time, 'minutes'));
-    var seconds = Math.abs(startMoment.diff(end_time, 'seconds', true));
+    var hours = Math.abs(startMoment.diff(endTime, 'hours'));
+    var minutes = Math.abs(startMoment.diff(endTime, 'minutes'));
+    var seconds = Math.abs(startMoment.diff(endTime, 'seconds', true));
 
     return hours + ':' + minutes + ':' + seconds;
   }
