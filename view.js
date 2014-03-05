@@ -28,7 +28,7 @@ AppView = Backbone.View.extend({
       App.destroyTimer($(this).parent('.timer').attr('id'));
     });
     this.timers[uid] = new Timer({ type: type, time: time });
-    this.updateTimer(uid);
+    this.renderTimer(uid);
   },
 
   destroyTimer: function(uid) {
@@ -36,16 +36,16 @@ AppView = Backbone.View.extend({
     delete this.timers[uid];
   },
 
-  updateTimer: function(uid) {
+  renderTimer: function(uid) {
     $('.timer#'+uid+' .display').html(this.timers[uid].result());
   },
 
-  update: function() {
+  render: function() {
     $('.timer').each(function() {
-      App.updateTimer($(this).attr('id'));
+      App.renderTimer($(this).attr('id'));
     });
   }
 });
 
 App = new AppView();
-setInterval(App.update, 1000);
+setInterval(App.render, 1000);
