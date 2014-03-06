@@ -1,3 +1,5 @@
+$.fx.speeds._default = 50;
+
 AppView = Backbone.View.extend({
   el: $('#ui'),
 
@@ -25,8 +27,8 @@ AppView = Backbone.View.extend({
   createTimer: function (type, time) {
     var that = this;
     var uid = this.createUID();
-    var $column = $('#' + type + '-column ul');
-    $column.append(this.template({ uid: uid }));
+    var column = '#' + type + '-column ul';
+    $(this.template({ uid: uid })).hide().appendTo(column).slideDown();
     $('.delete-button').click(function () {
       that.destroyTimer($(this).parent('.timer').attr('id'));
     });
@@ -42,7 +44,7 @@ AppView = Backbone.View.extend({
   },
 
   destroyTimer: function (uid) {
-    $('#' + uid).remove();
+    $('#' + uid).slideUp(function () { $(this).remove(); });
     delete this.timers[uid];
   },
 
