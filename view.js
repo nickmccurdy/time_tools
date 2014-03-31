@@ -27,19 +27,12 @@ AppView = Backbone.View.extend({
   createTimer: function (type, time) {
     var that = this;
     var uid = this.createUID();
-    var column = '#' + type + '-column ul';
-    $(this.template({ uid: uid })).hide().appendTo(column).slideDown();
+    $(this.template({ uid: uid })).hide().appendTo('#' + type + '-column ul').slideDown();
     $('.delete-button').click(function () {
       that.destroyTimer($(this).parent('.timer').attr('id'));
     });
-    switch (type) {
-    case 'countup':
-      this.timers[uid] = new CountUpTimer({ time: time });
-      break;
-    case 'countdown':
-      this.timers[uid] = new CountDownTimer({ time: time });
-      break;
-    }
+    var timerType = type === 'countup' ? CountUpTimer : CountDownTimer;
+    this.timers[uid] = new timerType({ time: time });
     this.renderTimer(uid);
   },
 
