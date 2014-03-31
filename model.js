@@ -1,6 +1,5 @@
 Timer = Backbone.Model.extend({
   defaults: {
-    type: 'countup',
     time: moment()
   },
 
