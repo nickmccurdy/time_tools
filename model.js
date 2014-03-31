@@ -18,12 +18,11 @@ Timer = Backbone.Model.extend({
 
 CountDownTimer = Timer.extend({
   result: function () {
-    var elapsed = Timer.prototype.result.call(this);
+    var result = Timer.prototype.result.call(this);
     if (moment().isAfter(this.get('time'))) {
-      return '<span class="text-danger">' + elapsed + ' late</span>';
-    } else {
-      return elapsed;
+      result = '<span class="text-danger">' + result + ' late</span>';
     }
+    return result;
   }
 });
 
