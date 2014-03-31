@@ -49,7 +49,12 @@ AppView = Backbone.View.extend({
   },
 
   renderTimer: function (uid) {
-    $('.timer#' + uid + ' .display').html(this.timers[uid].result());
+    var result = this.timers[uid].result();
+    var resultString = result.hours + ':' + result.minutes + ':' + result.seconds;
+    if (result.late) {
+      resultString = '<span class="text-danger">' + resultString + ' late</span>';
+    }
+    $('.timer#' + uid + ' .display').html(resultString);
   },
 
   render: function () {

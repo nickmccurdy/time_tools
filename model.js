@@ -8,20 +8,19 @@ Timer = Backbone.Model.extend({
     var startMoment = moment();
     var endTime = this.get('time');
 
-    var hours = Math.abs(startMoment.diff(endTime, 'hours'));
-    var minutes = Math.abs(startMoment.diff(endTime, 'minutes'));
-    var seconds = Math.abs(startMoment.diff(endTime, 'seconds', true));
-
-    return hours + ':' + minutes + ':' + seconds;
+    return {
+      hours: Math.abs(startMoment.diff(endTime, 'hours')),
+      minutes: Math.abs(startMoment.diff(endTime, 'minutes')),
+      seconds: Math.abs(startMoment.diff(endTime, 'seconds', true)),
+      late: false
+    };
   }
 });
 
 CountDownTimer = Timer.extend({
   result: function () {
     var result = Timer.prototype.result.call(this);
-    if (moment().isAfter(this.get('time'))) {
-      result = '<span class="text-danger">' + result + ' late</span>';
-    }
+    result.late = moment().isAfter(this.get('time'));
     return result;
   }
 });
