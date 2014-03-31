@@ -2,10 +2,12 @@ Timer = Backbone.Model.extend({
   defaults: {
     type: 'countup',
     time: moment()
-  }
-}, {
-  elapsedTime: function (endTime) {
+  },
+
+  result: function () {
     var startMoment = moment();
+    var endTime = this.get('time');
+
     var hours = Math.abs(startMoment.diff(endTime, 'hours'));
     var minutes = Math.abs(startMoment.diff(endTime, 'minutes'));
     var seconds = Math.abs(startMoment.diff(endTime, 'seconds', true));
@@ -16,7 +18,7 @@ Timer = Backbone.Model.extend({
 
 CountDownTimer = Timer.extend({
   result: function () {
-    var elapsed = Timer.elapsedTime(this.get('time'));
+    var elapsed = Timer.prototype.result.call(this);
     if (moment().isAfter(this.get('time'))) {
       return '<span class="text-danger">' + elapsed + ' late</span>';
     } else {
@@ -25,11 +27,7 @@ CountDownTimer = Timer.extend({
   }
 });
 
-CountUpTimer = Timer.extend({
-  result: function () {
-    return Timer.elapsedTime(this.get('time'));
-  }
-});
+CountUpTimer = Timer.extend({});
 
 TimerCollection = Backbone.Collection.extend({
   model: Timer
