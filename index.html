@@ -13,8 +13,15 @@
 
 <body>
 
-<div class="row" id="ui">
-  <div class="col-md-6" id="countdown-column">
+<!-- nav tabs -->
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#countdown-column" data-toggle="tab">Home</a></li>
+  <li><a href="#countup-column" data-toggle="tab">Profile</a></li>
+</ul>
+
+<!-- tab panes -->
+<div class="tab-content" id="ui">
+  <div class="tab-pane active" id="countdown-column">
     <h2 class="page-header">
       Countdowns
       <button class="btn btn-success new-button">
@@ -26,7 +33,7 @@
     <ul class="list-group">
     </ul>
   </div>
-  <div class="col-md-6" id="countup-column">
+  <div class="tab-pane" id="countup-column">
     <h2 class="page-header">
       Countups
       <button class="btn btn-success new-button">
@@ -49,6 +56,7 @@
 
 <!-- scripts -->
 <script src="http://code.jquery.com/jquery.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.5.1/moment.min.js"></script>
