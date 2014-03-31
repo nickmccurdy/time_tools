@@ -44,10 +44,9 @@ AppView = Backbone.View.extend({
   renderTimer: function (uid) {
     var result = this.timers[uid].result();
     var resultString = result.hours + ':' + result.minutes + ':' + result.seconds;
-    if (result.late) {
-      resultString = '<span class="text-danger">' + resultString + ' late</span>';
-    }
-    $('.timer#' + uid + ' .display').html(resultString);
+    var $timer = $('.timer#' + uid);
+    $timer.toggleClass('list-group-item-danger', result.late);
+    $timer.find('.display').html(resultString);
   },
 
   render: function () {
