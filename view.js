@@ -57,4 +57,4 @@ AppView = Backbone.View.extend({
 });
 
 App = new AppView();
-setInterval(App.render, 1000);
+setInterval(App.render, 100);
